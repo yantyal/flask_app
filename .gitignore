@@ -1,6 +1,8 @@
 venv
 db.py
 DDLまとめ.xlsx
+ec2-user@ec2-15-152-30-111.ap-northeast-3.compute.amazonaws.com/
+static/img/
 # config.py
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask,vscode

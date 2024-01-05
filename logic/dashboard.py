@@ -14,7 +14,7 @@ class DashboardLogic(BaseLogic):
         posts = self.get_posts()
         # ログを出力
         current_app.logger.info(f"posts: {posts}") 
-        return render_template("dashboard.html", posts=posts)
+        return redirect(url_for('dashboard'))
 
     def get_posts(self):
         # データベースからデータを取得
