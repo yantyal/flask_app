@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>投稿一覧</title>
+</head>
+<body class="post-page">
+    <div class="header-post-page"  data-logout-url="{{ url_for('main.logout') }}">
+        <button class="logout-btn" onclick="logout()">ログアウト</button>
+        <button class="post-btn">投稿</button>
+    </div>
+    {% for post in posts %}
+        <div class="post">
+            <img src="{{ url_for('static', filename=post.image_path) }}" alt="投稿の画像">
+            <p>{{ post.post }}</p>
+            <p>投稿者: {{ post.name }}</p>
+        </div>
+    {% endfor %}
+    <!-- Modal -->
+    <div id="postModal" class="post-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>新しい投稿</h3>
+            <form action="{{ url_for('main.create_post') }}" method="post" enctype="multipart/form-data">
+                <img id="imagePreview" src="#" alt="画像プレビュー" style="display: none; max-width: 100%; height: auto; margin-top: 10px;">
+                <label for="image">画像:</label>
+                <input type="file" name="image" required>
+                <label for="post">文章:</label>
+                <textarea name="post" required></textarea>
+                <button type="submit">投稿</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.querySelector('.post-btn').addEventListener('click', function() {
+            console.log('Post button clicked!');  // このログを追加
+            document.getElementById('postModal').style.display = "block";
+        });
+
+        document.querySelector('.close').addEventListener('click', function() {
+            console.log('Close button clicked!');  // このログを追加
+            document.getElementById('postModal').style.display = "none";
+        });
+        document.querySelector("input[type='file']").addEventListener('change', function() {
+            const preview = document.getElementById('imagePreview');
+            const file    = this.files[0];
+            const reader  = new FileReader();
+
+            reader.onloadend = function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+        });
+
+        function logout() {
+            // data-logout-url 属性からURLを取得
+            const logoutUrl = document.querySelector('.header-post-page').getAttribute('data-logout-url');
+            
+            // fetchを使用してサーバーにログアウトリクエストを送る
+            fetch(logoutUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // 必要に応じてbodyにデータを追加
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // ログアウト成功時の処理。例えばページをリロードするなど。
+                    location.href = '/';  // ここを変更
+                } else {
+                    // エラー処理
+                    alert("ログアウトに失敗しました。");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

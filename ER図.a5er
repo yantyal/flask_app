@@ -1,0 +1,140 @@
+﻿# A5:ER FORMAT:17
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.18.4 Copyright © 1997 - 2023 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=flask_app
+Author=toshiki
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Comment=users
+Page=Main
+PageInfo="Main",2,"A3Landscape",$FFFFFF
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=2
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Tahoma
+FontSize=6
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=6
+RDBMSTypeName=MySQL
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=0
+BugFixEntityWidth=1
+
+[Entity]
+PName=user_info
+LName=ユーザー情報
+Comment=
+TableOption=
+Page=MAIN
+Left=200
+Top=200
+Field="ユーザーID","user_id","@INT","NOT NULL",0,"","",$FFFFFFFF,"auto_increment"
+Field="ユーザー名","name","@VARCHAR(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="メールアドレス","mail","@VARCHAR(256)","NOT NULL",,"","",$FFFFFFFF,""
+Field="パスワード","password","@VARCHAR(256)","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20230910214654
+Position="MAIN",200,200
+ZOrder=1
+
+[Entity]
+PName=POST
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=950
+Top=200
+Field="投稿ID","post_id","@INT","NOT NULL",0,"AUTO_INCREMENT","",$FFFFFFFF,""
+Field="画像パス","image_path","@VARCHAR(256)",,,"","",$FFFFFFFF,""
+Field="投稿","post","TEXT","NOT NULL",,"","",$FFFFFFFF,""
+Field="最終更新日時","updated_at","@DATE","NOT NULL",,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20230915222009
+Position="MAIN",950,200
+ZOrder=2
+
+[Entity]
+PName=POST_USER
+LName=
+Comment=
+TableOption=
+Page=MAIN
+Left=600
+Top=200
+Field="投稿ユーザーID","post_user_id","@INT","NOT NULL",0,"","",$FFFFFFFF,""
+Field="投稿ID","post_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="ユーザーID","user_id","@INT","NOT NULL",,"","",$FFFFFFFF,""
+Field="削除フラグ","delete_flag","@CHAR","NOT NULL",,"\q0\q","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20230915221732
+Position="MAIN",600,200
+ZOrder=3
+
+[Relation]
+Entity1=user_info
+Entity2=POST_USER
+RelationType1=2
+RelationType2=3
+Fields1=user_id
+Fields2=user_id
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,5000,5000,5000,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=500
+Bar2=500
+Bar3=500
+TermPos1=R
+TermPos2=R
+ZOrder=4
+
+[Relation]
+Entity1=POST_USER
+Entity2=POST
+RelationType1=1
+RelationType2=3
+Fields1=post_user_id
+Fields2=
+Cardinarity1=
+Cardinarity2=
+Position="MAIN",0,897,9103,897,R,R,""
+Dependence=0
+Caption=
+PName=
+LineMode=0
+Bar1=90
+Bar2=910
+Bar3=90
+TermPos1=R
+TermPos2=R
+ZOrder=5

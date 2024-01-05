@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body class="login-page">
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="{{ url_for('main.login_logic') }}" method="post">
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <!-- モーダル部分の開始 -->
+<div id="errorModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Error: Invalid credentials.</p>
+    </div>
+</div>
+<div id="error-modal-data" data-show="{{ show_error_modal }}"></div>
+<!-- モーダル部分の終了 -->
+<script>
+    var modal = document.getElementById("errorModal");
+    var span = document.getElementsByClassName("close")[0];
+    var showErrorModal = document.getElementById("error-modal-data").getAttribute("data-show") === 'True';
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    if (showErrorModal) {
+        window.onload = function() {
+            modal.style.display = "block";
+        }
+    }
+</script>
+
+
+</body>
+
+</html>

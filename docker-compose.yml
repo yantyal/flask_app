@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - db
+    environment:
+      FLASK_APP: app.py
+      FLASK_ENV: development
+      SECRET_KEY: 'flask_app_113333555555'
+      UPLOAD_FOLDER: '/app/static/img'
+      FILE_PATH: 'img'
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root4645(gmgJ)
+      MYSQL_DATABASE: flask_app
+      MYSQL_USER: user21
+      MYSQL_PASSWORD: user21(PASS)
+    volumes:
+      - ./mysql/db:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+    ports:
+      - "3307:3307"
