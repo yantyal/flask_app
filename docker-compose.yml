@@ -5,7 +5,8 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./app:/app
+      - .:/app  # 修正したボリュームマウント
+      - web-images:/app/static/img  # アプリケーションの画像の永続化
     depends_on:
       - db
     environment:
@@ -16,13 +17,18 @@ services:
       FILE_PATH: 'img'
 
   db:
-    image: mysql:5.7
+    build: ./mysql  # MySQLカスタムDockerfileへのパスを指定
     environment:
       MYSQL_ROOT_PASSWORD: root4645(gmgJ)
       MYSQL_DATABASE: flask_app
       MYSQL_USER: user21
       MYSQL_PASSWORD: user21(PASS)
     volumes:
-      - ./mysql/db:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+      - db-data:/var/lib/mysql  # MySQLデータの永続化
+      - ./mysql/db:/docker-entrypoint-initdb.d
     ports:
       - "3307:3307"
+
+volumes:
+  web-images:  # webサービスの画像用ボリューム
+  db-data:     # dbサービスのMySQLデータ用ボリューム

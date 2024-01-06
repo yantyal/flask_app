@@ -3,3 +3,8 @@
 SOURCE ファイルパス
 で実行
 
+２、ダンプファイルの取得方法
+mysqldump -u root -p'password' --databases term > dump.sql
+
+３，ダンプファイルからリストア方法
+mysql -u root -p < dump.sql
